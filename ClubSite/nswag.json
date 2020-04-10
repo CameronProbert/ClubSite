@@ -3,7 +3,7 @@
   "defaultVariables": null,
   "documentGenerator": {
     "aspNetCoreToOpenApi": {
-      "project": "GhostUI.csproj",
+      "project": "ClubSite.csproj",
       "msBuildProjectExtensionsPath": null,
       "configuration": null,
       "runtime": null,

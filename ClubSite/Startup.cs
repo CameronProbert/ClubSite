@@ -1,7 +1,5 @@
 using System.Net;
-using ClubSite.Hubs;
 using ClubSite.Models;
-using ClubSite.Extensions;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
@@ -31,22 +29,11 @@ namespace ClubSite
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Custom healthcheck example (using nuget package .AddHealthChecksUI() to view results at {url}/healthchecks-ui)
-            services.AddHealthChecksUI()
-                .AddHealthChecks()
-                .AddGCInfoCheck("GCInfo");
-
-            // Add CORS
-            services.AddCorsConfig(_corsPolicyName);
-
             // Register RazorPages/Controllers
             services.AddControllers();
 
             // Add Brotli/Gzip response compression (prod only)
-            services.AddResponseCompressionConfig(Configuration);
-
-            // Add SignalR
-            services.AddSignalR();
+            //services.AddResponseCompressionConfig(Configuration);
 
             // IMPORTANT CONFIG CHANGE IN 3.0 - 'Async' suffix in action names get stripped by default - so, to access them by full name with 'Async' part - opt out of this feature'.
             services.AddMvc(options => options.SuppressAsyncSuffixInActionNames = false);
@@ -112,19 +99,10 @@ namespace ClubSite
             app.UseSpaStaticFiles();
             app.UseRouting();
 
-            // Map controllers / SignalR hubs / HealthChecks
+            // Map controllers
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<UsersHub>("/hubs/users");
-
-                endpoints.MapHealthChecks("/healthchecks-json", new HealthCheckOptions
-                {
-                    Predicate = _ => true,
-                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-                });
-
-                endpoints.MapHealthChecksUI();
             });
 
             app.UseSpa(spa =>
