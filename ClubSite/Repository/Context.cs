@@ -15,6 +15,7 @@ namespace ClubSite.Repository
         public DbSet<Site> Sites { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Reply> Replies { get; set; }
+        public DbSet<Asset> Assets { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

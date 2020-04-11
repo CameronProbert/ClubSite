@@ -7,7 +7,7 @@ namespace ClubSite.Models
 {
     public class Post : IAuditable
     {
-        public List<Reply> Replies { get; }
+        public ICollection<Reply> Replies { get; }
         public string Text { get; set; }
         public Member Author { get; }
 
