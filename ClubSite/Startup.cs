@@ -1,6 +1,5 @@
 using System.Net;
 using ClubSite.Models;
-using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +8,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using ClubSite.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClubSite
 {
@@ -40,8 +41,11 @@ namespace ClubSite
             // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration => configuration.RootPath = $"{_spaSourcePath}/dist");
 
-            // Register the Swagger services (using OpenApi 3.0)
-            services.AddOpenApiDocument(configure => configure.Title = $"{this.GetType().Namespace} API");
+            // Register
+            services.AddDbContext<Context>(options =>
+            {
+                options.UseMySQL(Configuration.GetConnectionString("Default"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -85,15 +89,6 @@ namespace ClubSite
 
             app.UseCors(_corsPolicyName);
             app.UseStaticFiles();
-
-            // Register the Swagger generator and the Swagger UI middlewares
-            // NSwage.MsBuild + adding automation config in GhostUI.csproj makes this part of the build step (updates to API will be handled automatically)
-            app.UseOpenApi();
-            app.UseSwaggerUi3(settings =>
-            {
-                settings.Path = "/docs";
-                settings.DocumentPath = "/docs/api-specification.json";
-            });
 
             app.UseSpaStaticFiles();
             app.UseRouting();

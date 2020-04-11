@@ -1,5 +1,6 @@
 ﻿using ClubSite.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,10 +17,20 @@ namespace ClubSite.Repository
         public DbSet<Post> Posts { get; set; }
         public DbSet<Reply> Replies { get; set; }
         public DbSet<Asset> Assets { get; set; }
+        private readonly IConfiguration configuration;
+
+        public Context (IConfiguration configuration) : base()
+        {
+            this.configuration = configuration;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Better to not have the connection string in here optionsBuilder.UseMySQL(ConfigurationManager.ConnectionStrings["Database"].ConnectionString);
+                optionsBuilder.UseMySQL(configuration["ConnectionString"]);
+            }
         }
     }
 }
