@@ -59,6 +59,27 @@
           }
         }
       }
+    },
+    "/api/random/Hello": {
+      "get": {
+        "tags": [
+          "Random"
+        ],
+        "operationId": "Random_Hello",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

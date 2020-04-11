@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/superagent": "^4.1.7",
+    "superagent": "^5.2.2"
+  }
+}
