@@ -1,19 +1,23 @@
 ﻿using ClubSite.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace ClubSite.Controllers
 {
-    [Route("api/[controller]/[action]")]
-    public class AssetController : Controller
+    [Route("api/auth/[action]")]
+    public class AuthController : Controller
     {
-        [HttpGet]
-        public async Task<IActionResult> Nav()
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody]Credentials request)
         {
-            if (!Uri.TryCreate("http://i.ytimg.com/vi/OFjlF7zQF_g/maxresdefault.jpg", UriKind.Absolute, out Uri uri)) ;
-            var navImage = new Asset { Url = uri, Description = "A super great nav image" };
-            return Ok(navImage);
+            var authUser = new AuthUser("success", "38595847A485DJSHND94857", request?.userName);
+            return Ok(authUser);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            return Ok();
         }
     }
 }
