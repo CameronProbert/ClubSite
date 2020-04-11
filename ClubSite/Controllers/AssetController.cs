@@ -13,7 +13,7 @@ namespace ClubSite.Controllers
         {
             if (!Uri.TryCreate("http://i.ytimg.com/vi/OFjlF7zQF_g/maxresdefault.jpg", UriKind.Absolute, out Uri uri));
             var navImage = new Asset { Url = uri, Description = "A super great nav image" };
-            return Ok(navImage);
+            return Ok(new {navImage.Description, navImage.Url});
         }
     }
 }

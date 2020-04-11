@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { getNavImg } from './requests';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Card } from 'react-bootstrap';
 import { Asset } from '../util/types';
 
 const Nav: React.FC = () => {
@@ -9,6 +9,7 @@ const Nav: React.FC = () => {
 
     getNavImg()
         .then(img => {
+            console.log(img);
             setNavImg(img);
         })
         .catch(error => {
@@ -19,12 +20,17 @@ const Nav: React.FC = () => {
     return <>
         <Container fluid>
             <Row>
-                <Col>
-                    <Image src={navImg.url} fluid alt={navImg.description}/>
-                </Col>
+                {navImg &&
+                    <Card className='text-center'>
+                        <Card.Img src={navImg.url} alt={navImg.description} />
+                        <Card.ImgOverlay>
+                            <Card.Title className='center-vertical'>Club clubity club club</Card.Title>
+                        </Card.ImgOverlay>
+                    </Card>
+                }
             </Row>
         </Container>
     </>;
-}
+};
 
 export default Nav;
