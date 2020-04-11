@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { getNavImg } from './requests';
-import { Container, Row, Card } from 'react-bootstrap';
+import { Card, Container, Row } from 'react-bootstrap';
+ 
 import { Asset } from '../util/types';
+
+import { getNavImg } from './requests';
 
 const Nav: React.FC = () => {
     const [navImg, setNavImg] = useState<Asset>();

@@ -1,10 +1,11 @@
-import * as request from "superagent";
-import { Asset } from "../util/types";
+import * as request from 'superagent';
 
-const url = 'api/asset/nav'
+import { Asset } from '../util/types'; 
+
+const url = 'api/asset/nav';
 
 export function getNavImg() : Promise<Asset> {
-  return request
-    .get(`${url}`)
-    .then(res => res.body);
+    return request
+        .get(`${url}`)
+        .then(res => res.body);
 }
