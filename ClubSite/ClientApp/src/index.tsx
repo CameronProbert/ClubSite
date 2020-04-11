@@ -7,6 +7,7 @@ import './assets/style/scss/site.scss';
 import { AppContainer } from 'react-hot-loader';
 import { ToastContainer, ToastPosition } from 'react-toastify';
 import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // This function starts up the React app when it runs in a browser. It sets up the routing configuration and injects the app into a DOM element.
 const renderApp = (): void => {
